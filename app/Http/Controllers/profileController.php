@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\profile_sekolah;
 use Illuminate\Http\Request;
 
-class profileController extends Controller
+class ProfileController extends Controller
 {
     public function index()
     {
@@ -13,27 +13,30 @@ class profileController extends Controller
         return view('profil.index', compact('profil'));
     }
 
-    //
     public function edit()
     {
         $profil = profile_sekolah::first() ?? new profile_sekolah();
         return view('profil.edit', compact('profil'));
     }
 
-    //
     public function update(Request $request)
     {
         $request->validate([
-            'nama_sekolah'   => 'required|max:40',
-            'kepala_sekolah' => 'required|max:40',
-            'npsn'           => 'required|max:10',
-            'kontak'         => 'required|max:15',
+            'nama_sekolah'   => 'required|string|max:40',
+            'kepala_sekolah' => 'required|string|max:40',
+            'npsn'           => 'required|numeric|max_digits:10',
+            'kontak'         => 'required|numeric|max_digits:15',
             'tahun_berdiri'  => 'required|numeric|min:1901|max:' . date('Y'),
             'alamat'         => 'required',
             'visi_misi'      => 'required',
             'deskripsi'      => 'required',
-            'logo'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'foto'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'logo'           => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'foto'           => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ], [
+            'npsn.numeric'     => 'NPSN harus berupa angka.',
+            'npsn.max_digits'  => 'NPSN tidak boleh lebih dari 10 digit.',
+            'kontak.numeric'   => 'Kontak / No Telp harus berupa angka.',
+            'kontak.max_digits'=> 'Kontak / No Telp tidak boleh lebih dari 15 digit.',
         ]);
 
         $data = $request->only([
@@ -45,7 +48,6 @@ class profileController extends Controller
             $logoPath = $request->file('logo')->store('profil', 'public');
             $data['logo'] = basename($logoPath);
         }
-
 
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('profil', 'public');

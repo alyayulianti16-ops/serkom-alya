@@ -28,10 +28,14 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nisn'         => 'required|numeric|unique:siswas,nisn',
+            'nisn'         => 'required|numeric|max_digits:10|unique:siswas,nisn',
             'nama_siswa'   => 'required|string|max:40',
             'jens_kelamin' => 'required|in:laki-laki,perempuan',
             'tahun_masuk'  => 'required|digits:4',
+        ], [
+            'nisn.numeric'    => 'NISN harus berupa angka.',
+            'nisn.max_digits' => 'NISN tidak boleh lebih dari 10 digit.',
+            'nisn.unique'     => 'NISN sudah terdaftar.',
         ]);
 
         Siswa::create([
@@ -55,10 +59,14 @@ class SiswaController extends Controller
         $siswa = Siswa::findOrFail($id);
 
         $request->validate([
-            'nisn'         => 'required|numeric|unique:siswas,nisn,' . $id . ',id_siswa',
+            'nisn'         => 'required|numeric|max_digits:10|unique:siswas,nisn,' . $id . ',id_siswa',
             'nama_siswa'   => 'required|string|max:40',
             'jens_kelamin' => 'required|in:laki-laki,perempuan',
             'tahun_masuk'  => 'required|digits:4',
+        ], [
+            'nisn.numeric'    => 'NISN harus berupa angka.',
+            'nisn.max_digits' => 'NISN tidak boleh lebih dari 10 digit.',
+            'nisn.unique'     => 'NISN sudah terdaftar.',
         ]);
 
         $siswa->update([
