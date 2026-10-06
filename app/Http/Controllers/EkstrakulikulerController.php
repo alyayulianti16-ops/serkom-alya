@@ -16,7 +16,7 @@ class EkstrakulikulerController extends Controller
             return $query->where('nama_ekskul', 'like', "%{$search}%")
                          ->orWhere('pembina', 'like', "%{$search}%");
         })
-        ->latest()
+        ->orderBy('nama_ekskul', 'asc')
         ->get();
 
         return view('ekstrakurikuler.index', $data);

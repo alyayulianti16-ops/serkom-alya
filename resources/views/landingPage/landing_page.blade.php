@@ -1,0 +1,237 @@
+@extends('layouts.template_landing')
+
+@section('content')
+    @php
+        $fotoPath = null;
+        if ($profilesekolah && $profilesekolah->foto) {
+            $foto = ltrim($profilesekolah->foto, '/');
+            $fotoPath = str_starts_with($foto, 'profil/') ? asset('storage/' . $foto) : asset('storage/profil/' . $foto);
+        }
+        $kepsekFotoPath = asset('assets/images/kepala_sekolah.png');
+    @endphp
+
+    <section id="beranda" class="position-relative text-white py-5 bg-dark" style="min-height: 480px;">
+        @if ($fotoPath)
+            <img src="{{ $fotoPath }}" alt="Foto Sekolah" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover">
+        @endif
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-75"></div>
+
+        <div class="container position-relative py-5 text-center d-flex flex-column align-items-center justify-content-center" style="min-height: 380px;">
+            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm">
+                <i class="bi bi-star-fill"></i> Terakreditasi
+            </span>
+            <h1 class="fw-bold display-5 mb-3 text-white">Tempat Tumbuh Bakat dan Prestasi</h1>
+            <p class="lead text-white-50 mb-4" style="max-width: 700px;">
+                {{ $profilesekolah->deskripsi ?? 'Mewujudkan pendidikan berkualitas untuk membentuk generasi yang berprestasi dan berkarakter.' }}
+            </p>
+            <div class="d-flex gap-2">
+                <a href="#profil" class="btn btn-warning fw-bold px-4 py-2">Tentang Kami</a>
+                <a href="#berita" class="btn btn-outline-light fw-semibold px-4 py-2">Berita Terbaru</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" style="margin-top: -35px; position: relative; z-index: 10;">
+        <div class="card border-0 shadow-lg rounded-4 bg-custom-purple text-white p-3">
+            <div class="row text-center py-2">
+                <div class="col-6 col-md-3 border-end border-light border-opacity-25 py-2">
+                    <h3 class="fw-bold display-6 mb-1">{{ $profilesekolah->akreditasi ?? 'A' }}</h3>
+                    <p class="text-white-50 small mb-0 fw-semibold">Akreditasi</p>
+                </div>
+                <div class="col-6 col-md-3 border-end border-light border-opacity-25 py-2">
+                    <h3 class="fw-bold display-6 mb-1">{{ $jumlahSiswa ?? (\App\Models\Siswa::count() ?? 0) }}</h3>
+                    <p class="text-white-50 small mb-0 fw-semibold">Jumlah Siswa</p>
+                </div>
+                <div class="col-6 col-md-3 border-end border-light border-opacity-25 py-2">
+                    <h3 class="fw-bold display-6 mb-1">{{ $jumlahGuru ?? (\App\Models\Guru::count() ?? 0) }}</h3>
+                    <p class="text-white-50 small mb-0 fw-semibold">Jumlah Guru</p>
+                </div>
+                <div class="col-6 col-md-3 py-2">
+                    <h3 class="fw-bold display-6 mb-1">
+                        {{ $jumlahEkskul ?? (class_exists(\App\Models\Ekstrakulikuler::class) ? \App\Models\Ekstrakulikuler::count() : 0) }}
+                    </h3>
+                    <p class="text-white-50 small mb-0 fw-semibold">Ekstrakurikuler</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="profil" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">Tentang Sekolah</h2>
+                <p class="text-muted">Mengenal lebih dekat profil dan sambutan kepala sekolah</p>
+            </div>
+
+            <div class="card border-0 shadow-sm p-4 p-md-5 rounded-4 bg-white mb-4">
+                <div class="row align-items-center g-4">
+                    <div class="col-md-4 text-center">
+                        <img src="{{ $kepsekFotoPath }}" alt="Kepala Sekolah" class="img-fluid rounded-4 shadow-sm w-100" style="max-height: 260px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <h3 class="fw-bold mb-3">Sambutan Kepala Sekolah</h3>
+                        <p class="text-muted" style="line-height: 1.8;">
+                            {{ $profilesekolah->sambutan_kepala_sekolah ?? 'Selamat datang di website resmi sekolah kami. Semoga informasi ini bermanfaat bagi seluruh warga sekolah dan masyarakat.' }}
+                        </p>
+                        <h5 class="fw-bold mb-0 text-dark mt-4">{{ $profilesekolah->kepala_sekolah ?? 'Nama Kepala Sekolah, M.Pd' }}</h5>
+                        <small class="text-muted">Kepala Sekolah</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100 p-4 rounded-4 bg-white">
+                        <div class="text-custom-purple fs-3 mb-3"><i class="bi bi-info-circle"></i></div>
+                        <h4 class="fw-bold h5 mb-3">Informasi Sekolah</h4>
+                        <ul class="list-unstyled text-muted small d-flex flex-column gap-2 mb-0">
+                            <li><strong>NPSN:</strong> {{ $profilesekolah->npsn ?? '-' }}</li>
+                            <li><strong>Kepala Sekolah:</strong> {{ $profilesekolah->kepala_sekolah ?? '-' }}</li>
+                            <li><strong>Tahun Berdiri:</strong> {{ $profilesekolah->tahun_berdiri ?? '-' }}</li>
+                            <li><strong>Alamat:</strong> {{ $profilesekolah->alamat ?? '-' }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm h-100 p-4 rounded-4 bg-white">
+                        <div class="text-custom-purple fs-3 mb-3"><i class="bi bi-flag"></i></div>
+                        <h4 class="fw-bold h5 mb-3">Visi & Misi</h4>
+                        <p class="text-muted fst-italic mb-0" style="line-height: 1.8;">"{{ $profilesekolah->visi_misi ?? '-' }}"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="guru" class="py-5 bg-white border-top">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">Daftar Guru & Staff</h2>
+                <p class="text-muted">Tenaga pendidik profesional di sekolah kami</p>
+            </div>
+            <div class="row g-4">
+                @forelse($gurus ?? [] as $guru)
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="card border-0 shadow-sm h-100 text-center p-4 rounded-4 bg-light">
+                            <div class="card-body d-flex flex-column align-items-center p-0">
+                                @if ($guru->foto)
+                                    <img src="{{ asset('storage/' . ltrim($guru->foto, '/')) }}" alt="Foto" class="rounded-circle mb-3 shadow-sm object-fit-cover" width="90" height="90">
+                                @else
+                                    <div class="rounded-circle bg-white text-custom-purple d-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 90px; height: 90px; font-size: 35px;">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                @endif
+                                <h5 class="fw-bold fs-6 mb-1">{{ $guru->nama_guru }}</h5>
+                                <p class="text-custom-purple fw-semibold small mb-1">{{ $guru->mapel ?? '-' }}</p>
+                                <small class="text-muted mt-auto">NIP: {{ $guru->nip ?? '-' }}</small>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center text-muted">Belum ada data guru.</div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    <section id="ekstrakurikuler" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">Ekstrakurikuler</h2>
+                <p class="text-muted">Wadah pengembangan bakat dan minat siswa</p>
+            </div>
+            <div class="row g-4">
+                @forelse($ekstrakurikulers ?? [] as $ekskul)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
+                            @if ($ekskul->gambar)
+                                <img src="{{ asset('storage/' . ltrim($ekskul->gambar, '/')) }}" alt="Ekskul" class="card-img-top object-fit-cover" style="height: 190px;">
+                            @else
+                                <div class="card-img-top bg-light text-custom-purple d-flex align-items-center justify-content-center" style="height: 190px; font-size: 40px;">
+                                    <i class="bi bi-image"></i>
+                                </div>
+                            @endif
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold h6 mb-2">{{ $ekskul->nama_ekskul }}</h5>
+                                <p class="text-muted small mb-0">{{ $ekskul->deskripsi }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center text-muted">Belum ada data ekstrakurikuler.</div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    <section id="galeri" class="py-5 bg-white border-top">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark">Galeri Foto Kegiatan</h2>
+            <p class="text-muted">Dokumentasi momen aktivitas di sekolah</p>
+        </div>
+        <div class="row g-4">
+            @forelse($galeris as $galeri)
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
+                        @if (!empty($galeri->file))
+                            @if (preg_match('/\.(mp4|mkv|webm)$/i', $galeri->file))
+                                <video src="{{ asset('storage/' . $galeri->file) }}" controls class="card-img-top object-fit-cover" style="height: 190px;"></video>
+                            @else
+                                <img src="{{ asset('storage/' . $galeri->file) }}" alt="Galeri" class="card-img-top object-fit-cover" style="height: 190px;">
+                            @endif
+                        @else
+                            <div class="card-img-top bg-light text-custom-purple d-flex align-items-center justify-content-center" style="height: 190px; font-size: 40px;">
+                                <i class="bi bi-camera"></i>
+                            </div>
+                        @endif
+                        <div class="card-body p-4 d-flex flex-column">
+                            <small class="text-muted mb-2"><i class="bi bi-calendar3 me-1"></i> {{ $galeri->created_at ? $galeri->created_at->format('d M Y') : '-' }}</small>
+                            <h5 class="fw-bold h6 mb-2">{{ $galeri->judul }}</h5>
+                            <p class="text-muted small mb-0">{{ $galeri->keterangan ?? '-' }}</p>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12 text-center text-muted">Belum ada data galeri.</div>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+    <section id="berita" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">Berita & Pengumuman</h2>
+                <p class="text-muted">Informasi terbaru seputar sekolah</p>
+            </div>
+            <div class="row g-4">
+                @forelse($beritas ?? [] as $berita)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
+                            @if ($berita->gambar)
+                                <img src="{{ asset('storage/' . ltrim($berita->gambar, '/')) }}" alt="Berita" class="card-img-top object-fit-cover" style="height: 190px;">
+                            @else
+                                <div class="card-img-top bg-light text-custom-purple d-flex align-items-center justify-content-center" style="height: 190px; font-size: 40px;">
+                                    <i class="bi bi-newspaper"></i>
+                                </div>
+                            @endif
+                            <div class="card-body p-4 d-flex flex-column">
+                                <small class="text-muted mb-2"><i class="bi bi-calendar3 me-1"></i> {{ $berita->created_at ? $berita->created_at->format('d M Y') : '-' }}</small>
+                                <h5 class="fw-bold h6 mb-2">{{ $berita->judul }}</h5>
+                                <p class="text-muted small mb-3">{{ Str::limit($berita->isi, 90) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center text-muted">Belum ada berita.</div>
+                @endforelse
+            </div>
+            <div class="text-center mt-5">
+                <a href="{{ route('landingPage.semua_berita') }}" class="btn text-white fw-bold px-4 py-2 rounded-pill bg-custom-purple shadow-sm">
+                    Lihat Berita Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+@endsection
