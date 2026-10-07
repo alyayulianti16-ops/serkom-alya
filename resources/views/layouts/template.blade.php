@@ -5,8 +5,7 @@
   <title>@yield('title', 'Dashboard Sekolah')</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <link rel="icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /><link rel="icon" href="{{ asset('assets/images/logo.png') }}" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
     id="main-font-link" />
   <link rel="stylesheet" href="{{ asset('assets/fonts/phosphor/duotone/style.css') }}" />

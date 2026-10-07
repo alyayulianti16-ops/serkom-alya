@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\Siswa;
-use App\Models\Ekstrakulikuler; // Sesuaikan dengan penamaan model kamu
+use App\Models\Ekstrakulikuler;
 use App\Models\Berita;
 use App\Models\Galeri;
 use App\Models\User;

@@ -12,19 +12,43 @@ use App\Models\Galeri;
 
 class LandingController extends Controller
 {
+   private function getSchoolPaths()
+{
+    $profilesekolah = profile_sekolah::first();
+
+    $fotoPath = null;
+    if ($profilesekolah && $profilesekolah->foto) {
+        $fotoPath = asset('storage/profil/' . ltrim($profilesekolah->foto, '/'));
+    }
+
+    $logoPath = null;
+    if ($profilesekolah && $profilesekolah->logo) {
+        $logoPath = asset('storage/profil/' . ltrim($profilesekolah->logo, '/'));
+    }
+
+    $kepsekFotoPath = asset('assets/images/kepala_sekolah.png');
+
+    return compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath');
+}
+
     public function index()
     {
-        $profilesekolah = profile_sekolah::first();
+        extract($this->getSchoolPaths());
+
         $ekstrakurikulers = Ekstrakulikuler::latest()->take(6)->get();
         $beritas = Berita::latest()->take(3)->get();
         $totalSiswa = Siswa::count();
         $totalGuru = Guru::count();
         $totalEskul = Ekstrakulikuler::count();
+
         $gurus = Guru::latest()->take(8)->get();
         $galeris = Galeri::latest()->take(6)->get();
 
         return view('landingPage.landing_page', compact(
             'profilesekolah',
+            'fotoPath',
+            'logoPath',
+            'kepsekFotoPath',
             'ekstrakurikulers',
             'beritas',
             'totalSiswa',
@@ -37,36 +61,40 @@ class LandingController extends Controller
 
     public function semuaBerita()
     {
-        $profilesekolah = profile_sekolah::first();
-        $beritas = Berita::latest()->take(6)->get();;
+        extract($this->getSchoolPaths());
+        $beritas = Berita::latest()->take(6)->get();
 
-        return view('landingPage.semua_berita', compact('profilesekolah', 'beritas'));
+        return view('landingPage.berita.semua_berita', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath', 'beritas'));
     }
+
     public function semuaGuru()
     {
-        $profilesekolah = profile_sekolah::first();
+        extract($this->getSchoolPaths());
         $gurus = Guru::all();
 
-        return view('landingPage.semua_guru', compact('profilesekolah', 'gurus'));
+        return view('landingPage.guru.semua_guru', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath', 'gurus'));
     }
+
     public function semuaEkskul()
     {
-        $profilesekolah = profile_sekolah::first();
-        $ekskuls = ekstrakulikuler::all();
+        extract($this->getSchoolPaths());
+        $ekskuls = Ekstrakulikuler::all();
 
-        return view('landingPage.semua_ekstrakulikuler', compact('profilesekolah', 'ekskuls'));
+        return view('landingPage.ekstrakulikuler.semua_ekstrakulikuler', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath', 'ekskuls'));
     }
+
     public function semuaGaleri()
     {
-        $profilesekolah = profile_sekolah::first();
+        extract($this->getSchoolPaths());
         $galeris = Galeri::all();
 
-        return view('landingPage.semua_galeri', compact('profilesekolah', 'galeris'));
+        return view('landingPage.galeri.semua_galeri', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath', 'galeris'));
     }
+
     public function profilSekolah()
     {
-        $profilesekolah = profile_sekolah::first();
+        extract($this->getSchoolPaths());
 
-        return view('landingPage.semua_profil', compact('profilesekolah'));
+        return view('landingPage.profil.profile', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath'));
     }
 }

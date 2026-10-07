@@ -38,15 +38,16 @@
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
                                                     <thead>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>Gambar</th>
-                                                            <th>Judul Berita</th>
-                                                            <th>Tanggal</th>
-                                                            <th>Pembuat</th>
-                                                            <th>Aksi</th>
-                                                        </tr>
-                                                    </thead>
+    <tr>
+        <th>No</th>
+        <th>Gambar</th>
+        <th>Judul Berita</th>
+        <th>Ringkasan</th>
+        <th>Tanggal</th>
+        <th>Pembuat</th>
+        <th>Aksi</th>
+    </tr>
+</thead>
                                                     <tbody>
                                                         @forelse ($beritas as $item)
                                                             <tr>
@@ -62,6 +63,7 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>{{ $item->judul }}</td>
+                                                                <td>{{ Str::limit($item->isi, 50) }}</td>
                                                                 <td>{{ date('Y-m-d', strtotime($item->tanggal)) }}</td>
                                                                 <td>{{ $item->user->name ?? $item->user->username ?? Auth::user()->name ?? '-' }}</td>
                                                                 <td>

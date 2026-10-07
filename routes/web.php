@@ -13,11 +13,11 @@ use App\Http\Controllers\EkstrakulikulerController;
 use App\Http\Controllers\LandingController;
 
 Route::get('/', [LandingController::class, 'index'])->name('landingPage.landing.index');
-Route::get('/berita', [LandingController::class, 'semuaBerita'])->name('landingPage.semua_berita');
-Route::get('/semua-guru', [LandingController::class, 'semuaGuru'])->name('landingPage.semua_guru');
-Route::get('/semua-ekstrakurikuler', [LandingController::class, 'semuaEkskul'])->name('landingPage.semua_ekstrakulikuler');
-Route::get('/semua-galeri', [LandingController::class, 'semuaGaleri'])->name('landingPage.semua_galeri');
-Route::get('/profil-sekolah', [LandingController::class, 'profilSekolah'])->name('landingPage.semua_profil');
+Route::get('/berita', [LandingController::class, 'semuaBerita'])->name('landingPage.berita.semua_berita');
+Route::get('/semua-guru', [LandingController::class, 'semuaGuru'])->name('landingPage.guru.semua_guru');
+Route::get('/semua-ekstrakurikuler', [LandingController::class, 'semuaEkskul'])->name('landingPage.ekstrakulikuler.semua_ekstrakulikuler');
+Route::get('/semua-galeri', [LandingController::class, 'semuaGaleri'])->name('landingPage.galeri.semua_galeri');
+Route::get('/profil-sekolah', [LandingController::class, 'profilSekolah'])->name('landingPage.profil.semua_profil');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

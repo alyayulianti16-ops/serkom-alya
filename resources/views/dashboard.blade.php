@@ -46,7 +46,7 @@
 </div>
 
 <div class="row g-3">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card border-0 shadow-sm rounded-3 mb-3">
             <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
                 <h5 class="mb-0 fw-bold">Berita Terbaru</h5>
@@ -81,28 +81,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-4">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-header bg-white py-3">
-                <h5 class="mb-0 fw-bold">Akses Cepat</h5>
-            </div>
-            <div class="card-body d-grid gap-2">
-                <a href="{{ route('siswa.create') }}" class="btn btn-outline-primary text-start">
-                    <i class="ti ti-plus me-1"></i> Tambah Data Siswa
-                </a>
-                <a href="{{ route('guru.create') }}" class="btn btn-outline-primary text-start">
-                    <i class="ti ti-plus me-1"></i> Tambah Data Guru
-                </a>
-                <a href="{{ route('berita.create') }}" class="btn btn-outline-primary text-start">
-                    <i class="ti ti-plus me-1"></i> Tambah Berita Baru
-                </a>
-                <a href="{{ route('galeri.create') }}" class="btn btn-outline-primary text-start">
-                    <i class="ti ti-plus me-1"></i> Upload Galeri
-                </a>
             </div>
         </div>
     </div>

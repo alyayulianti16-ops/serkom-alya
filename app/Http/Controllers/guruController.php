@@ -14,11 +14,11 @@ class GuruController extends Controller
 
         $data['gurus'] = Guru::when($search, function ($query, $search) {
             return $query->where('nama_guru', 'like', "%{$search}%")
-                         ->orWhere('nip', 'like', "%{$search}%")
-                         ->orWhere('mapel', 'like', "%{$search}%");
+                ->orWhere('nip', 'like', "%{$search}%")
+                ->orWhere('mapel', 'like', "%{$search}%");
         })
-        ->orderBy('nama_guru', 'asc')
-        ->get();
+            ->orderBy('nama_guru', 'asc')
+            ->get();
 
         return view('guru.index', $data);
     }
@@ -80,29 +80,26 @@ class GuruController extends Controller
 
         $request->validate([
             'nama_guru' => 'required|string|max:40',
-            'nip'       => 'required|numeric|max_digits:15|unique:gurus,nip,' . $id . ',id_guru',
+            'nip'       => 'required|numeric|digits_between:1,18|unique:gurus,nip,' . $id . ',id_guru',
             'mapel'     => 'required|string|max:40',
             'foto'      => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
-            'nip.numeric'    => 'NIP harus berupa angka.',
-            'nip.max_digits' => 'NIP tidak boleh lebih dari 15 digit.',
-            'nip.unique'     => 'NIP sudah terdaftar.',
+            'nip.numeric'        => 'NIP harus berupa angka.',
+            'nip.digits_between' => 'NIP tidak boleh lebih dari 18 digit.',
+            'nip.unique'         => 'NIP sudah terdaftar.',
         ]);
-
-        $input = [
+        $updateData = [
             'nama_guru' => $request->nama_guru,
             'nip'       => $request->nip,
             'mapel'     => $request->mapel,
         ];
-
         if ($request->hasFile('foto')) {
             if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
                 Storage::disk('public')->delete($guru->foto);
             }
-            $input['foto'] = $request->file('foto')->store('guru', 'public');
+            $updateData['foto'] = $request->file('foto')->store('guru', 'public');
         }
-
-        $guru->update($input);
+        $guru->update($updateData);
 
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui.');
     }

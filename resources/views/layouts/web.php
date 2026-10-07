@@ -13,9 +13,11 @@ use App\Http\Controllers\EkstrakulikulerController;
 use App\Http\Controllers\LandingController;
 
 Route::get('/', [LandingController::class, 'index'])->name('landingPage.landing.index');
-Route::get('/berita', [LandingController::class, 'semuaBerita'])->name('landingPage.semua_berita');
+Route::get('/berita', [LandingController::class, 'semuaBerita'])->name('landingPage.berita.semua_berita');
 Route::get('/ekstrakulikuler', [LandingController::class, 'semuaEkskul'])->name('landingPage.semua_ekskul');
-Route::get('/profil-sekolah', [LandingController::class, 'profilSekolah'])->name('landingPage.semua_profil');
+Route::get('/profil-sekolah', [LandingController::class, 'profilSekolah'])->name('landingPage.profile');
+Route::get('/guru', [LandingController::class, 'semuaGuru'])->name('landingPage.semua_guru');
+Route::get('/galeri', [LandingController::class, 'semuaGaleri'])->name('landingPage.semua_galeri');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
