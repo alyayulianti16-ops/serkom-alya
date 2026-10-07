@@ -12,24 +12,24 @@ use App\Models\Galeri;
 
 class LandingController extends Controller
 {
-   private function getSchoolPaths()
-{
-    $profilesekolah = profile_sekolah::first();
+    private function getSchoolPaths()
+    {
+        $profilesekolah = profile_sekolah::first();
 
-    $fotoPath = null;
-    if ($profilesekolah && $profilesekolah->foto) {
-        $fotoPath = asset('storage/profil/' . ltrim($profilesekolah->foto, '/'));
+        $fotoPath = null;
+        if ($profilesekolah && $profilesekolah->foto) {
+            $fotoPath = asset('storage/profil/' . ltrim($profilesekolah->foto, '/'));
+        }
+
+        $logoPath = null;
+        if ($profilesekolah && $profilesekolah->logo) {
+            $logoPath = asset('storage/profil/' . ltrim($profilesekolah->logo, '/'));
+        }
+
+        $kepsekFotoPath = asset('assets/images/kepala_sekolah.png');
+
+        return compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath');
     }
-
-    $logoPath = null;
-    if ($profilesekolah && $profilesekolah->logo) {
-        $logoPath = asset('storage/profil/' . ltrim($profilesekolah->logo, '/'));
-    }
-
-    $kepsekFotoPath = asset('assets/images/kepala_sekolah.png');
-
-    return compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath');
-}
 
     public function index()
     {
@@ -96,5 +96,49 @@ class LandingController extends Controller
         extract($this->getSchoolPaths());
 
         return view('landingPage.profil.profile', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath'));
+    }
+    public function detailGuru($id)
+    {
+        extract($this->getSchoolPaths());
+        $guru = Guru::find($id);
+
+        if (!$guru) {
+            return redirect()->route('landingPage.guru.semua_guru')->with('error', 'Data guru tidak ditemukan.');
+        }
+
+        return view('landingPage.guru.detail', compact('guru', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+    }
+    public function detailGaleri($id)
+    {
+        extract($this->getSchoolPaths());
+        $galeri = Galeri::find($id);
+
+        if (!$galeri) {
+            return redirect()->route('landingPage.galeri.semua_galeri')->with('error', 'Data galeri tidak ditemukan.');
+        }
+
+        return view('landingPage.galeri.detail', compact('galeri', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+    }
+    public function detailEkskul($id)
+    {
+        extract($this->getSchoolPaths());
+        $ekskul = Ekstrakulikuler::find($id);
+
+        if (!$ekskul) {
+            return redirect()->route('landingPage.ekskul.semua_ekskul')->with('error', 'Data ekstrakurikuler tidak ditemukan.');
+        }
+
+        return view('landingPage.ekstrakulikuler.detail', compact('ekskul', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+    }
+    public function detailBerita($id)
+    {
+        extract($this->getSchoolPaths());
+        $berita = Berita::find($id);
+
+        if (!$berita) {
+            return redirect()->route('landingPage.berita.semua_berita')->with('error', 'Data berita tidak ditemukan.');
+        }
+
+        return view('landingPage.berita.detail', compact('berita', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
     }
 }

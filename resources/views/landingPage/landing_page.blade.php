@@ -96,7 +96,7 @@
         </div>
     </section>
 
-     <section id="berita" class="py-5">
+    <section id="berita" class="py-5">
         <div class="container py-4">
             <div class="text-center mb-5" data-aos="fade-up">
                 <h2 class="fw-bold text-dark">Berita Terbaru</h2>
@@ -105,15 +105,24 @@
             <div class="row g-4">
                 @foreach ($beritas as $berita)
                     <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up">
-                        <div class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
+                        <div
+                            class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white d-flex flex-column">
                             <img src="{{ asset('storage/' . ltrim($berita->gambar, '/')) }}" alt="Berita"
                                 class="card-img-top object-fit-cover" style="height: 190px;">
-                            <div class="card-body p-4 d-flex flex-column">
-                                <small class="text-muted mb-2">
-                                    <i class="bi bi-calendar3 me-1"></i> {{ $berita->created_at?->format('d M Y') }}
-                                </small>
-                                <h5 class="fw-bold h6 mb-2">{{ $berita->judul }}</h5>
-                                <p class="text-muted small mb-3">{{ Str::limit($berita->isi, 90) }}</p>
+                            <div class="card-body p-4 d-flex flex-column justify-content-between flex-grow-1">
+                                <div>
+                                    <small class="text-muted mb-2 d-block">
+                                        <i class="bi bi-calendar3 me-1"></i> {{ $berita->created_at?->format('d M Y') }}
+                                    </small>
+                                    <h5 class="fw-bold h6 mb-2 text-dark">{{ $berita->judul }}</h5>
+                                    <p class="text-muted small mb-3">{{ Str::limit($berita->isi, 90) }}</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <a href="{{ route('landingPage.berita.detail', $berita->id ?? $berita->id_berita) }}"
+                                        class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
+                                        Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -137,21 +146,26 @@
             <div class="row g-4">
                 @foreach ($gurus as $guru)
                     <div class="col-12 col-sm-6 col-lg-3" data-aos="fade-up">
-                        <div class="card card-hover border-0 shadow-sm h-100 text-center p-4 rounded-4 bg-light">
-                            <div class="card-body d-flex flex-column align-items-center p-0">
+                        <div
+                            class="card card-hover border-0 shadow-sm h-100 text-center p-4 rounded-4 bg-light d-flex flex-column align-items-center justify-content-center">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-0 w-100">
                                 <img src="{{ asset('storage/' . ltrim($guru->foto, '/')) }}" alt="Foto"
                                     class="rounded-circle mb-3 shadow-sm object-fit-cover" width="90" height="90">
-                                <h5 class="fw-bold fs-6 mb-1">{{ $guru->nama_guru }}</h5>
+                                <h5 class="fw-bold fs-6 mb-1 text-dark">{{ $guru->nama_guru }}</h5>
                                 <p class="text-custom-purple fw-semibold small mb-1">{{ $guru->mapel }}</p>
-                                <small class="text-muted mt-auto">NIP: {{ $guru->nip }}</small>
+                                <small class="text-muted mt-auto mb-2">NIP: {{ $guru->nip }}</small>
+                                <a href="{{ route('landingPage.guru.detail', $guru->id_guru) }}"
+                                    class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small mt-2">
+                                    Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 @endforeach
                 <div class="text-center mt-5" data-aos="fade-up">
-                    <a href="{{route('landingPage.guru.semua_guru')}}"
-                    class="btn text-white fw-bold px-4 py-2 bg-custom-purple rounded-pill shadow-sm ">
-                    Guru Lainnya <i class="bi bi-arrow-right ms-1"></i></a>
+                    <a href="{{ route('landingPage.guru.semua_guru') }}"
+                        class="btn text-white fw-bold px-4 py-2 bg-custom-purple rounded-pill shadow-sm ">
+                        Guru Lainnya <i class="bi bi-arrow-right ms-1"></i></a>
                 </div>
             </div>
         </div>
@@ -166,16 +180,31 @@
             <div class="row g-4">
                 @foreach ($ekstrakurikulers as $ekskul)
                     <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up">
-                        <div class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
+                        <div
+                            class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white d-flex flex-column">
                             <img src="{{ asset('storage/' . ltrim($ekskul->gambar, '/')) }}" alt="Ekskul"
                                 class="card-img-top object-fit-cover" style="height: 190px;">
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold h6 mb-2">{{ $ekskul->nama_ekskul }}</h5>
-                                <p class="text-muted small mb-0">{{ $ekskul->deskripsi }}</p>
+                            <div class="card-body p-4 d-flex flex-column justify-content-between flex-grow-1">
+                                <div>
+                                    <h5 class="fw-bold h6 mb-2 text-dark">{{ $ekskul->nama_ekskul }}</h5>
+                                    <p class="text-muted small mb-3">{{ Str::limit($ekskul->deskripsi, 100) }}</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <a href="{{ route('landingPage.ekskul.detail', $ekskul->getKey()) }}"
+                                        class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
+                                        Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
+                <div class="text-center mt-5" data-aos="fade-up">
+                    <a href="{{ route('landingPage.ekskul.semua_ekskul') }}"
+                        class="btn text-white fw-bold px-4 py-2 rounded-pill bg-custom-purple shadow-sm">
+                        Lihat Ekskul Lainnya <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -189,7 +218,8 @@
             <div class="row g-4">
                 @foreach ($galeris as $galeri)
                     <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up">
-                        <div class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
+                        <div
+                            class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white d-flex flex-column">
                             @if (preg_match('/\.(mp4|mkv|webm)$/i', $galeri->file))
                                 <video src="{{ asset('storage/' . $galeri->file) }}" controls
                                     class="card-img-top object-fit-cover" style="height: 190px;"></video>
@@ -197,16 +227,30 @@
                                 <img src="{{ asset('storage/' . $galeri->file) }}" alt="Galeri"
                                     class="card-img-top object-fit-cover" style="height: 190px;">
                             @endif
-                            <div class="card-body p-4 d-flex flex-column">
-                                <small class="text-muted mb-2">
-                                    <i class="bi bi-calendar3 me-1"></i> {{ $galeri->created_at?->format('d M Y') }}
-                                </small>
-                                <h5 class="fw-bold h6 mb-2">{{ $galeri->judul }}</h5>
-                                <p class="text-muted small mb-0">{{ $galeri->keterangan }}</p>
+                            <div class="card-body p-4 d-flex flex-column justify-content-between flex-grow-1">
+                                <div>
+                                    <small class="text-muted mb-2 d-block">
+                                        <i class="bi bi-calendar3 me-1"></i> {{ $galeri->created_at?->format('d M Y') }}
+                                    </small>
+                                    <h5 class="fw-bold h6 mb-2 text-dark">{{ $galeri->judul }}</h5>
+                                    <p class="text-muted small mb-3">{{ Str::limit($galeri->keterangan, 90) }}</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <a href="{{ route('landingPage.galeri.detail', $galeri->id ?? $galeri->id_galeri) }}"
+                                        class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
+                                        Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
+                <div class="text-center mt-5" data-aos="fade-up">
+                    <a href="{{ route('landingPage.galeri.semua_galeri') }}"
+                        class="btn text-white fw-bold px-4 py-2 rounded-pill bg-custom-purple shadow-sm">
+                        Lihat Galeri Lainnya <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>

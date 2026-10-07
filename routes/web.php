@@ -15,9 +15,13 @@ use App\Http\Controllers\LandingController;
 Route::get('/', [LandingController::class, 'index'])->name('landingPage.landing.index');
 Route::get('/berita', [LandingController::class, 'semuaBerita'])->name('landingPage.berita.semua_berita');
 Route::get('/semua-guru', [LandingController::class, 'semuaGuru'])->name('landingPage.guru.semua_guru');
-Route::get('/semua-ekstrakurikuler', [LandingController::class, 'semuaEkskul'])->name('landingPage.ekstrakulikuler.semua_ekstrakulikuler');
+Route::get('/semua-ekstrakurikuler', [LandingController::class, 'semuaEkskul'])->name('landingPage.ekskul.semua_ekskul');
 Route::get('/semua-galeri', [LandingController::class, 'semuaGaleri'])->name('landingPage.galeri.semua_galeri');
 Route::get('/profil-sekolah', [LandingController::class, 'profilSekolah'])->name('landingPage.profil.semua_profil');
+Route::get('/guru/detail/{id}', [LandingController::class, 'detailGuru'])->name('landingPage.guru.detail');
+Route::get('/galeri/{id}', [LandingController::class, 'detailGaleri'])->name('landingPage.galeri.detail');
+Route::get('/ekstrakurikuler/{id}', [LandingController::class, 'detailEkskul'])->name('landingPage.ekskul.detail');
+Route::get('/berita/{id}', [LandingController::class, 'detailBerita'])->name('landingPage.berita.detail');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -61,14 +65,11 @@ Route::middleware('checkauth:Admin,Operator')->group(function () {
     Route::post('/administrator/galeri/delete', [GaleriController::class, 'destroy'])->name('galeri.destroy');
 
     Route::get('/administrator/ekstrakulikuler', [EkstrakulikulerController::class, 'index'])->name('ekstrakurikuler.index');
-Route::get('/administrator/ekstrakulikuler/create', [EkstrakulikulerController::class, 'create'])->name('ekstrakurikuler.create');
-Route::post('/administrator/ekstrakulikuler/store', [EkstrakulikulerController::class, 'store'])->name('ekstrakurikuler.store');
-Route::get('/administrator/ekstrakulikuler/edit', [EkstrakulikulerController::class, 'edit'])->name('ekstrakurikuler.edit');
-Route::post('/administrator/ekstrakulikuler/update', [EkstrakulikulerController::class, 'update'])->name('ekstrakurikuler.update');
-Route::post('/administrator/ekstrakulikuler/delete', [EkstrakulikulerController::class, 'destroy'])->name('ekstrakurikuler.destroy');
-
-
-
+    Route::get('/administrator/ekstrakulikuler/create', [EkstrakulikulerController::class, 'create'])->name('ekstrakurikuler.create');
+    Route::post('/administrator/ekstrakulikuler/store', [EkstrakulikulerController::class, 'store'])->name('ekstrakurikuler.store');
+    Route::get('/administrator/ekstrakulikuler/edit', [EkstrakulikulerController::class, 'edit'])->name('ekstrakurikuler.edit');
+    Route::post('/administrator/ekstrakulikuler/update', [EkstrakulikulerController::class, 'update'])->name('ekstrakurikuler.update');
+    Route::post('/administrator/ekstrakulikuler/delete', [EkstrakulikulerController::class, 'destroy'])->name('ekstrakurikuler.destroy');
 });
 
 Route::middleware('checkauth:Admin')->group(function () {
@@ -79,5 +80,4 @@ Route::middleware('checkauth:Admin')->group(function () {
     Route::get('/administrator/users/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/administrator/users/update', [UserController::class, 'update'])->name('users.update');
     Route::post('/administrator/users/delete', [UserController::class, 'destroy'])->name('users.destroy');
-
 });

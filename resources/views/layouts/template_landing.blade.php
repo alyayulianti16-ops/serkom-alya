@@ -68,11 +68,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('landingPage.guru.semua_guru') ? 'active' : '' }}"
-                            href="{{ route('landingPage.guru.semua_guru') }}">Guru $ Staf</a>
+                            href="{{ route('landingPage.guru.semua_guru') }}">Guru & Staf</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('landingPage.ekstrakulikuler.semua_ekstrakulikuler') ? 'active' : '' }}"
-                            href="{{ route('landingPage.ekstrakulikuler.semua_ekstrakulikuler') }}">Ekstrakurikuler</a>
+                        <a class="nav-link {{ request()->routeIs('landingPage.ekskul.semua_ekskul') ? 'active' : '' }}"
+                            href="{{ route('landingPage.ekskul.semua_ekskul') }}">Ekstrakurikuler</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('landingPage.galeri.semua_galeri') ? 'active' : '' }}"

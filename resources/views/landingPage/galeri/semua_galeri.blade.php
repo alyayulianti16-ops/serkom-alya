@@ -29,6 +29,12 @@
                                 <h5 class="fw-bold mb-2 text-dark">{{ $galeri->judul }}</h5>
                                 <p class="text-muted small mb-0">{{ $galeri->keterangan ?? '' }}</p>
                             </div>
+                            <div class="mt-auto">
+                                    <a href="{{ route('landingPage.galeri.detail', $galeri->id ?? $galeri->id_galeri) }}"
+                                        class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
+                                        Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
                         </div>
                     </div>
                 </div>
