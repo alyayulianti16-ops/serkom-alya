@@ -62,7 +62,7 @@ class LandingController extends Controller
     public function semuaBerita()
     {
         extract($this->getSchoolPaths());
-        $beritas = Berita::latest()->take(6)->get();
+        $beritas = Berita::latest()->get();
 
         return view('landingPage.berita.semua_berita', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath', 'beritas'));
     }
@@ -70,7 +70,7 @@ class LandingController extends Controller
     public function semuaGuru()
     {
         extract($this->getSchoolPaths());
-        $gurus = Guru::all();
+        $gurus = Guru::orderBy('nama_guru', 'asc')->get();
 
         return view('landingPage.guru.semua_guru', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath', 'gurus'));
     }
@@ -97,48 +97,68 @@ class LandingController extends Controller
 
         return view('landingPage.profil.profile', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath'));
     }
+
     public function detailGuru($id)
     {
         extract($this->getSchoolPaths());
-        $guru = Guru::find($id);
 
-        if (!$guru) {
-            return redirect()->route('landingPage.guru.semua_guru')->with('error', 'Data guru tidak ditemukan.');
+        if ($id) {
+            $idDecrypted = decrypt($id);
+            $guru = Guru::find($idDecrypted);
+
+            if ($guru) {
+                return view('landingPage.guru.detail', compact('guru', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+            }
         }
 
-        return view('landingPage.guru.detail', compact('guru', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+        return redirect()->route('landingPage.guru.semua_guru')->with('error', 'Data guru tidak ditemukan.');
     }
+
     public function detailGaleri($id)
     {
         extract($this->getSchoolPaths());
-        $galeri = Galeri::find($id);
 
-        if (!$galeri) {
-            return redirect()->route('landingPage.galeri.semua_galeri')->with('error', 'Data galeri tidak ditemukan.');
+        if ($id) {
+            $idDecrypted = decrypt($id);
+            $galeri = Galeri::find($idDecrypted);
+
+            if ($galeri) {
+                return view('landingPage.galeri.detail', compact('galeri', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+            }
         }
 
-        return view('landingPage.galeri.detail', compact('galeri', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+        return redirect()->route('landingPage.galeri.semua_galeri')->with('error', 'Data galeri tidak ditemukan.');
     }
+
     public function detailEkskul($id)
     {
         extract($this->getSchoolPaths());
-        $ekskul = Ekstrakulikuler::find($id);
 
-        if (!$ekskul) {
-            return redirect()->route('landingPage.ekskul.semua_ekskul')->with('error', 'Data ekstrakurikuler tidak ditemukan.');
+        if ($id) {
+            $idDecrypted = decrypt($id);
+            $ekskul = Ekstrakulikuler::find($idDecrypted);
+
+            if ($ekskul) {
+                return view('landingPage.ekstrakulikuler.detail', compact('ekskul', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+            }
         }
 
-        return view('landingPage.ekstrakulikuler.detail', compact('ekskul', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+        return redirect()->route('landingPage.ekskul.semua_ekskul')->with('error', 'Data ekstrakurikuler tidak ditemukan.');
     }
+
     public function detailBerita($id)
     {
         extract($this->getSchoolPaths());
-        $berita = Berita::find($id);
 
-        if (!$berita) {
-            return redirect()->route('landingPage.berita.semua_berita')->with('error', 'Data berita tidak ditemukan.');
+        if ($id) {
+            $idDecrypted = decrypt($id);
+            $berita = Berita::find($idDecrypted);
+
+            if ($berita) {
+                return view('landingPage.berita.detail', compact('berita', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+            }
         }
 
-        return view('landingPage.berita.detail', compact('berita', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));
+        return redirect()->route('landingPage.berita.semua_berita')->with('error', 'Data berita tidak ditemukan.');
     }
 }

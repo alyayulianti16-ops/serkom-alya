@@ -118,7 +118,7 @@
                                     <p class="text-muted small mb-3">{{ Str::limit($berita->isi, 90) }}</p>
                                 </div>
                                 <div class="mt-auto">
-                                    <a href="{{ route('landingPage.berita.detail', $berita->id ?? $berita->id_berita) }}"
+                                    <a href="{{ route('landingPage.berita.detail', encrypt($berita->id ?? $berita->id_berita)) }}"
                                         class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
                                         Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
                                     </a>
@@ -154,7 +154,7 @@
                                 <h5 class="fw-bold fs-6 mb-1 text-dark">{{ $guru->nama_guru }}</h5>
                                 <p class="text-custom-purple fw-semibold small mb-1">{{ $guru->mapel }}</p>
                                 <small class="text-muted mt-auto mb-2">NIP: {{ $guru->nip }}</small>
-                                <a href="{{ route('landingPage.guru.detail', $guru->id_guru) }}"
+                                <a href="{{ route('landingPage.guru.detail', encrypt($guru->id_guru)) }}"
                                     class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small mt-2">
                                     Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
                                 </a>
@@ -190,7 +190,7 @@
                                     <p class="text-muted small mb-3">{{ Str::limit($ekskul->deskripsi, 100) }}</p>
                                 </div>
                                 <div class="mt-auto">
-                                    <a href="{{ route('landingPage.ekskul.detail', $ekskul->getKey()) }}"
+                                    <a href="{{ route('landingPage.ekskul.detail', encrypt( $ekskul->getKey())) }}"
                                         class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
                                         Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
                                     </a>
@@ -236,7 +236,7 @@
                                     <p class="text-muted small mb-3">{{ Str::limit($galeri->keterangan, 90) }}</p>
                                 </div>
                                 <div class="mt-auto">
-                                    <a href="{{ route('landingPage.galeri.detail', $galeri->id ?? $galeri->id_galeri) }}"
+                                    <a href="{{ route('landingPage.galeri.detail', encrypt($galeri->id ?? $galeri->id_galeri)) }}"
                                         class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
                                         Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
                                     </a>

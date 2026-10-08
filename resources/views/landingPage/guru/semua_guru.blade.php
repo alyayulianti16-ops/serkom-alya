@@ -23,7 +23,7 @@
                             <p class="text-muted small fw-semibold mb-0">{{ $guru->mapel ?? 'Guru / Staf' }}</p>
                             <small class="text-muted mt-auto">NIP: {{ $guru->nip }}</small>
 
-                            <a href="{{ route('landingPage.guru.detail', $guru->id_guru) }}"
+                            <a href="{{ route('landingPage.guru.detail', encrypt($guru->id_guru ?? $guru->id)) }}"
                                 class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small mt-2">
                                 Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
                             </a>

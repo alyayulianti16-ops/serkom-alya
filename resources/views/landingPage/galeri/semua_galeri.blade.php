@@ -10,17 +10,18 @@
 
     <div class="container pb-5">
         <div class="row g-4">
-            @foreach($galeris as $galeri)
+            @foreach ($galeris as $galeri)
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white" data-aos="fade-up">
+                    <div class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white"
+                        data-aos="fade-up">
                         @if (preg_match('/\.(mp4|mkv|webm)$/i', $galeri->file))
                             <video class="card-img-top object-fit-cover" style="height: 220px;" controls>
                                 <source src="{{ asset('storage/' . ltrim($galeri->file, '/')) }}" type="video/mp4">
                                 Browser Anda tidak mendukung tag video.
                             </video>
                         @else
-                            <img src="{{ asset('storage/' . ltrim($galeri->file, '/')) }}"
-                                 alt="{{ $galeri->judul }}" class="card-img-top object-fit-cover" style="height: 220px;">
+                            <img src="{{ asset('storage/' . ltrim($galeri->file, '/')) }}" alt="{{ $galeri->judul }}"
+                                class="card-img-top object-fit-cover" style="height: 220px;">
                         @endif
 
                         <div class="card-body p-4 d-flex flex-column justify-content-between">
@@ -30,11 +31,11 @@
                                 <p class="text-muted small mb-0">{{ $galeri->keterangan ?? '' }}</p>
                             </div>
                             <div class="mt-auto">
-                                    <a href="{{ route('landingPage.galeri.detail', $galeri->id ?? $galeri->id_galeri) }}"
-                                        class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
-                                        Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
-                                    </a>
-                                </div>
+                                <a href="{{ route('landingPage.galeri.detail', encrypt($galeri->id_galeri ?? $galeri->id)) }}"
+                                    class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
+                                    Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

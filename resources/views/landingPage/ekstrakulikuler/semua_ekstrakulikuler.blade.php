@@ -10,11 +10,13 @@
 
     <div class="container pb-5">
         <div class="row g-4">
-            @foreach($ekskuls as $ekskul)
+            @foreach ($ekskuls as $ekskul)
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white d-flex flex-column" data-aos="fade-up">
+                    <div class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white d-flex flex-column"
+                        data-aos="fade-up">
                         <img src="{{ asset('storage/' . ltrim($ekskul->gambar, '/')) }}"
-                             alt="{{ $ekskul->nama_ekskul ?? $ekskul->nama }}" class="card-img-top object-fit-cover" style="height: 200px;">
+                            alt="{{ $ekskul->nama_ekskul ?? $ekskul->nama }}" class="card-img-top object-fit-cover"
+                            style="height: 200px;">
 
                         <div class="card-body p-4 d-flex flex-column justify-content-between flex-grow-1">
                             <div>
@@ -22,7 +24,7 @@
                                 <p class="text-muted small mb-3">{{ Str::limit($ekskul->deskripsi ?? '', 100) }}</p>
                             </div>
                             <div class="mt-auto">
-                                <a href="{{ route('landingPage.ekskul.detail', $ekskul->id_eskul) }}"
+                                <a href="{{ route('landingPage.ekskul.detail', encrypt($ekskul->id_eskul)) }}"
                                     class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
                                     Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
                                 </a>
