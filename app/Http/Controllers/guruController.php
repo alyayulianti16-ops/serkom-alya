@@ -32,12 +32,12 @@ class GuruController extends Controller
     {
         $request->validate([
             'nama_guru' => 'required|string|max:40',
-            'nip'       => 'required|numeric|max_digits:15|unique:gurus,nip',
+            'nip'       => 'required|numeric|max_digits:18|unique:gurus,nip',
             'mapel'     => 'required|string|max:40',
             'foto'      => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'nip.numeric'    => 'NIP harus berupa angka.',
-            'nip.max_digits' => 'NIP tidak boleh lebih dari 15 digit.',
+            'nip.max_digits' => 'NIP tidak boleh lebih dari 18 digit.',
             'nip.unique'     => 'NIP sudah terdaftar.',
         ]);
 
@@ -80,12 +80,12 @@ class GuruController extends Controller
 
         $request->validate([
             'nama_guru' => 'required|string|max:40',
-            'nip'       => 'required|numeric|digits_between:1,18|unique:gurus,nip,' . $id . ',id_guru',
+            'nip'       => 'required|numeric|max_digits:18|unique:gurus,nip' . $id . ',id_guru',
             'mapel'     => 'required|string|max:40',
             'foto'      => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'nip.numeric'        => 'NIP harus berupa angka.',
-            'nip.digits_between' => 'NIP tidak boleh lebih dari 18 digit.',
+            'nip.max_digits' => 'NIP tidak boleh lebih dari 18 digit.',
             'nip.unique'         => 'NIP sudah terdaftar.',
         ]);
         $updateData = [

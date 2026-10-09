@@ -103,14 +103,6 @@
               </a>
             </li>
           @endif
-
-          <li class="pc-item">
-            <a href="{{route('landingPage.landing.index')}}" class="pc-link">
-              <span class="pc-micon"><i class="ti ti-home"></i></span>
-              <span class="pc-mtext">halaman utama</span>
-            </a>
-          </li>
-
         </ul>
       </div>
     </div>
