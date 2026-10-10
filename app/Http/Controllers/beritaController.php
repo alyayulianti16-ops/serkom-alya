@@ -33,6 +33,7 @@ class beritaController extends Controller
             'judul'   => 'required|string|max:50|unique:beritas,judul',
             'isi'     => 'required',
             'tanggal' => 'required|date',
+            'status'  => 'required|in:draf,publish',
             'gambar'  => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'judul.unique' => 'Judul berita sudah ada, gunakan judul lain.',
@@ -49,6 +50,7 @@ class beritaController extends Controller
             'judul'   => $request->judul,
             'isi'     => $request->isi,
             'tanggal' => $request->tanggal,
+            'status'  => $request->status,
             'gambar'  => $gambarPath,
             'id_user' => $userId,
         ]);
@@ -85,7 +87,8 @@ class beritaController extends Controller
             'judul'   => 'required|string|max:50|unique:beritas,judul,' . $id . ',id_berita',
             'isi'     => 'required',
             'tanggal' => 'required|date',
-            'gambar'  => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'status'  => 'required|in:draf,publish',
+            'gambar'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'judul.unique' => 'Judul berita sudah ada, gunakan judul lain.',
         ]);
@@ -94,6 +97,7 @@ class beritaController extends Controller
             'judul'   => $request->judul,
             'isi'     => $request->isi,
             'tanggal' => $request->tanggal,
+            'status'  => $request->status,
         ];
 
         if ($request->hasFile('gambar')) {

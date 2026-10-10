@@ -21,7 +21,8 @@
                                                         <input type="text" name="search"
                                                             class="form-control form-control-sm me-1"
                                                             placeholder="Cari berita..." value="{{ request('search') }}">
-                                                        <button type="submit" class="btn btn-sm btn-secondary">Cari</button>
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-secondary">Cari</button>
                                                         @if (request('search'))
                                                             <a href="{{ route('berita.index') }}"
                                                                 class="btn btn-sm btn-light border ms-1">Reset</a>
@@ -38,16 +39,17 @@
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
                                                     <thead>
-    <tr>
-        <th>No</th>
-        <th>Gambar</th>
-        <th>Judul Berita</th>
-        <th>Ringkasan</th>
-        <th>Tanggal</th>
-        <th>Pembuat</th>
-        <th>Aksi</th>
-    </tr>
-</thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Gambar</th>
+                                                            <th>Judul Berita</th>
+                                                            <th>Ringkasan</th>
+                                                            <th>Tanggal</th>
+                                                            <th>Pembuat</th>
+                                                            <th>Status</th>
+                                                            <th>Aksi</th>
+                                                        </tr>
+                                                    </thead>
                                                     <tbody>
                                                         @forelse ($beritas as $item)
                                                             <tr>
@@ -59,13 +61,22 @@
                                                                             style="max-height: 50px; object-fit: cover;"
                                                                             alt="gambar">
                                                                     @else
-                                                                        <span class="badge badge-secondary">Tidak ada gambar</span>
+                                                                        <span class="badge badge-secondary">Tidak ada
+                                                                            gambar</span>
                                                                     @endif
                                                                 </td>
                                                                 <td>{{ $item->judul }}</td>
                                                                 <td>{{ Str::limit($item->isi, 50) }}</td>
                                                                 <td>{{ date('Y-m-d', strtotime($item->tanggal)) }}</td>
-                                                                <td>{{ $item->user->name ?? $item->user->username ?? Auth::user()->name ?? '-' }}</td>
+                                                                <td>{{ $item->user->name ?? ($item->user->username ?? (Auth::user()->name ?? '-')) }}
+                                                                </td>
+                                                                <td>
+                                                                    @if ($item->status == 'publish')
+                                                                        <span class="badge bg-success">Publish</span>
+                                                                    @else
+                                                                        <span class="badge bg-secondary">Draf</span>
+                                                                    @endif
+                                                                </td>
                                                                 <td>
                                                                     <a href="{{ route('berita.edit', ['id_berita' => encrypt($item->id_berita)]) }}"
                                                                         class="btn btn-sm btn-info">Edit</a>
@@ -82,7 +93,8 @@
                                                             </tr>
                                                         @empty
                                                             <tr>
-                                                                <td colspan="6" class="text-center">Data berita belum tersedia.</td>
+                                                                <td colspan="6" class="text-center">Data berita belum
+                                                                    tersedia.</td>
                                                             </tr>
                                                         @endforelse
                                                     </tbody>

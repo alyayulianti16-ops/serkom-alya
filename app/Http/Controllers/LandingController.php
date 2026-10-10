@@ -26,7 +26,7 @@ class LandingController extends Controller
             $logoPath = asset('storage/profil/' . ltrim($profilesekolah->logo, '/'));
         }
 
-        $kepsekFotoPath = asset('assets/images/kepala_sekolah.png');
+        $kepsekFotoPath = asset('assets/images/kepsek.png');
 
         return compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath');
     }
@@ -36,7 +36,7 @@ class LandingController extends Controller
         extract($this->getSchoolPaths());
 
         $ekstrakurikulers = Ekstrakulikuler::latest()->take(6)->get();
-        $beritas = Berita::latest()->take(3)->get();
+        $beritas = Berita::where('status', 'publish')->latest()->take(3)->get();
         $totalSiswa = Siswa::count();
         $totalGuru = Guru::count();
         $totalEskul = Ekstrakulikuler::count();
@@ -62,7 +62,7 @@ class LandingController extends Controller
     public function semuaBerita()
     {
         extract($this->getSchoolPaths());
-        $beritas = Berita::latest()->get();
+        $beritas = Berita::where('status', 'publish')->latest()->get();
 
         return view('landingPage.berita.semua_berita', compact('profilesekolah', 'fotoPath', 'logoPath', 'kepsekFotoPath', 'beritas'));
     }
@@ -152,7 +152,7 @@ class LandingController extends Controller
 
         if ($id) {
             $idDecrypted = decrypt($id);
-            $berita = Berita::find($idDecrypted);
+            $berita = Berita::where('id_berita', $idDecrypted)->where('status', 'publish')->first();
 
             if ($berita) {
                 return view('landingPage.berita.detail', compact('berita', 'profilesekolah', 'logoPath', 'fotoPath', 'kepsekFotoPath'));

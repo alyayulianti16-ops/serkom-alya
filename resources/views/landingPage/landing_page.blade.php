@@ -54,7 +54,7 @@
                 <div class="row align-items-center g-4">
                     <div class="col-md-4 text-center">
                         <img src="{{ $kepsekFotoPath }}" alt="Kepala Sekolah" class="img-fluid rounded-4 shadow-sm w-100"
-                            style="max-height: 260px; object-fit: cover;">
+                            style="max-height: 400px; object-fit: cover;">
                     </div>
                     <div class="col-md-8">
                         <h3 class="fw-bold mb-3">Sambutan Kepala Sekolah</h3>
@@ -190,7 +190,7 @@
                                     <p class="text-muted small mb-3">{{ Str::limit($ekskul->deskripsi, 100) }}</p>
                                 </div>
                                 <div class="mt-auto">
-                                    <a href="{{ route('landingPage.ekskul.detail', encrypt( $ekskul->getKey())) }}"
+                                    <a href="{{ route('landingPage.ekskul.detail', encrypt($ekskul->getKey())) }}"
                                         class="text-decoration-none fw-bold text-custom-purple d-inline-flex align-items-center small">
                                         Lihat Detailnya <i class="bi bi-arrow-right ms-1"></i>
                                     </a>
@@ -220,7 +220,7 @@
                     <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up">
                         <div
                             class="card card-hover border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white d-flex flex-column">
-                            @if (preg_match('/\.(mp4|mkv|webm)$/i', $galeri->file))
+                            @if ($galeri->kategori == 'video')
                                 <video src="{{ asset('storage/' . $galeri->file) }}" controls
                                     class="card-img-top object-fit-cover" style="height: 190px;"></video>
                             @else

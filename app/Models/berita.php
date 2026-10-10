@@ -17,6 +17,7 @@ class berita extends Model
         'judul',
         'isi',
         'tanggal',
+        'status',
         'gambar',
         'id_user',
     ];

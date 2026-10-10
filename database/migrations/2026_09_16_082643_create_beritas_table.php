@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->integer('id_user');
             $table->foreign('id_user')->references('id_user')->on('user')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('status', ['draf', 'publish'])->default('draf');
 
             $table->timestamps();
         });

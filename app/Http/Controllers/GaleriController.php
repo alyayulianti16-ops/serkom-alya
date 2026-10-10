@@ -34,8 +34,8 @@ class GaleriController extends Controller
             'keterangan' => 'required|string',
             'kategori'   => 'required|in:foto,video',
             'tanggal'    => 'required|date',
-            'file'       => $request->kategori === 'foto' 
-                            ? 'required|image|mimes:jpeg,png,jpg,webp|max:2048' 
+            'file'       => $request->kategori === 'foto'
+                            ? 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
                             : 'required|file|mimes:mp4,mkv,avi|max:20480',
         ]);
 
@@ -85,8 +85,8 @@ class GaleriController extends Controller
             'keterangan' => 'required|string',
             'kategori'   => 'required|in:foto,video',
             'tanggal'    => 'required|date',
-            'file'       => $request->kategori === 'foto' 
-                            ? 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048' 
+            'file'       => $request->kategori === 'foto'
+                            ? 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
                             : 'nullable|file|mimes:mp4,mkv,avi|max:20480',
         ]);
 

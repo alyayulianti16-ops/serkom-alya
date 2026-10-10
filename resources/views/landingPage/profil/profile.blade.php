@@ -11,9 +11,10 @@
 
     <div class="container pb-5">
         <div class="row g-4 align-items-center mb-5">
-            <div class="col-12 col-lg-5 text-center" data-aos="fade-right">
-                <img src="{{ $kepsekFotoPath }}" alt="{{ $profilesekolah->nama_sekolah }}" class="img-fluid rounded-4 shadow-sm w-100 object-fit-cover" style="max-height: 350px;">
-            </div>
+            <div class="col-md-4 text-center">
+                        <img src="{{ $kepsekFotoPath }}" alt="Kepala Sekolah" class="img-fluid rounded-4 shadow-sm w-100"
+                            style="max-height: 400px; object-fit: cover;">
+                    </div>
 
             <div class="col-12 col-lg-7" data-aos="fade-left">
                 <div class="card card-hover border-0 shadow-sm rounded-4 p-4 bg-white">
